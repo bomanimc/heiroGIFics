@@ -1,0 +1,17 @@
+{
+  "name": "HeiroGIFics",
+  "version": "1.0.0",
+  "description": "Chat using only GIFs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "consolidate": "^0.10.0",
+    "express": "^4.10.7",
+    "http": "0.0.0",
+    "request": "^2.51.0"
+  }
+}
