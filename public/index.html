@@ -8,6 +8,10 @@
 
   </head>
   <body>
+    <div>
+      <input type='text' id='searchInput' placeholder='Search'>
+      <button type="button" id='searchButton'>Search!</button>
+    </div>
     <div id='messagesDiv'>
       <img src='http://upload.wikimedia.org/wikipedia/en/6/65/Hello_logo_sm.gif'>
     </div>
@@ -35,6 +39,15 @@
         $('<div/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
+      //Gets text from search button on click
+      $('#searchButton').click(function() {
+        var searchText = $('#searchInput').val();
+        var parameters = {"searchInput": searchText}
+        $.get('/gifs', parameters, function(data){
+          console.log('Made a call to get gifs');
+          console.dir(data);
+        });
+      });
     </script>
   </body>
 </html>
