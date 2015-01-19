@@ -5,7 +5,10 @@
 
     <!--Add jQuery-->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-
+    <!--Style sheet for the image grid-->
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!--Masonry grid for gifs-->
+    <script src="js/masonry.pkgd.min.js"></script>
   </head>
   <body>
     <div>
@@ -18,6 +21,12 @@
     <input type='text' id='nameInput' placeholder='Name'>
     <input type='text' id='messageInput' placeholder='Message'>
     
+    <!--Pattern HTML-->
+  <div id="pattern" class="pattern">
+    <ul class="g"></ul>
+  </div>
+  <!--End Pattern HTML-->
+
     <script>
       var myDataRef = new Firebase('https://heirogifics.firebaseio.com/');
       $('#messageInput').keypress(function (e) {
@@ -41,11 +50,17 @@
       };
       //Gets text from search button on click
       $('#searchButton').click(function() {
+        $(".g").empty();
         var searchText = $('#searchInput').val();
         var parameters = {"searchInput": searchText}
         $.get('/gifs', parameters, function(data){
           console.log('Made a call to get gifs');
           console.dir(data);
+          for (var i = 0; i <= data.length - 1; i++) {
+            var gifLink = data[i];
+            var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image" height = "100" width = "100" /></a>';
+            $('<li/>').html( newList ).appendTo($('.g'));
+          };
         });
       });
     </script>
