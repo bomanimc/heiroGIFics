@@ -5,29 +5,44 @@
 
     <!--Add jQuery-->
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
     <!--Style sheet for the image grid-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
+
     <!--Masonry grid for gifs-->
-    <script src="js/masonry.pkgd.min.js"></script>
+    <script src="js/jquery.masonry.min.js"></script>
   </head>
+
   <body>
     <div>
       <input type='text' id='searchInput' placeholder='Search'>
       <button type="button" id='searchButton'>Search!</button>
     </div>
-    <div id='messagesDiv'>
-      <img src='http://upload.wikimedia.org/wikipedia/en/6/65/Hello_logo_sm.gif'>
-    </div>
+
+    <div id='messagesDiv'></div>
+
+    <!--div class="commentArea">
+      <div class="bubbledLeft">Hi</div>
+      <div class="bubbledRight">Hi there yourself</div>
+      <div class="bubbledLeft">Do you speak Latin?</div>
+      <div class="bubbledRight">Yes</div>
+      <div class="bubbledLeft">Prove it</div>
+      <div class="bubbledRight">
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      </div>
+      <div class="bubbledLeft">OK</div>
+      <div class="bubbledLeft">Take it all back, you do speak latin.</div>
+    </div-->
+
     <input type='text' id='nameInput' placeholder='Name'>
     <input type='text' id='messageInput' placeholder='Message'>
     
     <!--Pattern HTML-->
-  <div id="pattern" class="pattern">
-    <ul class="g"></ul>
-  </div>
-  <!--End Pattern HTML-->
+      <div id="g"></div>
+    <!--End Pattern HTML-->
 
     <script>
+
       var myDataRef = new Firebase('https://heirogifics.firebaseio.com/');
       $('#messageInput').keypress(function (e) {
         if (e.keyCode == 13) {
@@ -38,31 +53,63 @@
           $('#messageInput').val('');
         }
       });
+      var count = 0;
+
       myDataRef.on('child_added', function(snapshot) {
         var message = snapshot.val();
-        displayChatMessage(message.name, message.text);
+        displayChatMessage(message.name, message.text, count);
+        count++;
       });
-      function displayChatMessage(name, text) {
-        var srcString = '<img id="theImg" src="' + text + '" height= "500" width= "500" />';
-        //console.log(srcString);
-        $('<div/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+
+      function displayChatMessage(name, text, count) {
+
+        var srcString = '<img id="theImg" src="' + text + '"width= "300" />';
+
+        if((count%2) == 0)
+        {
+          $('<div class="bubbledLeft"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        }
+        else
+        {
+          $('<div class="bubbledRight"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+        }
+
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
+
       //Gets text from search button on click
       $('#searchButton').click(function() {
-        $(".g").empty();
+        console.log('Open Function');
+
+        $("#g").empty();
+        $("#g").masonry('destroy');
+
+        console.log('Cleared List');
         var searchText = $('#searchInput').val();
         var parameters = {"searchInput": searchText}
+        
         $.get('/gifs', parameters, function(data){
           console.log('Made a call to get gifs');
           console.dir(data);
           for (var i = 0; i <= data.length - 1; i++) {
             var gifLink = data[i];
-            var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image" height = "100" width = "100" /></a>';
-            $('<li/>').html( newList ).appendTo($('.g'));
+            var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image" width = "300" /></a>';
+            //$('<li/>').html( newList ).appendTo($('.g'));
+            //var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image"/></a>';
+            $('<div class="gif"/>').html( newList ).appendTo($('#g'));
+
+            //Code for Masonry
+            var $container = $('#g');
+            $container.imagesLoaded(function(){
+              $container.masonry({
+                itemSelector : '.gif'
+              });
+            });
+
           };
         });
       });
     </script>
+
   </body>
 </html>
