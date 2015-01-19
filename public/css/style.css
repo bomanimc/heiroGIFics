@@ -1,4 +1,16 @@
+.gradBG {
+	background-color: #D2B48C;
+}
+
 #messagesDiv {
+	width: 75%;
+	margin-left: 12.5%;
+	overflow-y: auto; 
+	height: 70%;
+	border: 2px solid;
+	/*background-color: white;*/
+}
+.searchDiv {
 	width: 75%;
 	margin-left: 12.5%;
 }

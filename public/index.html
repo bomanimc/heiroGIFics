@@ -8,31 +8,28 @@
 
     <!--Style sheet for the image grid-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-
+    <link rel="stylesheet" type="text/css" href="css/toolbarStyle.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
     <!--Masonry grid for gifs-->
     <script src="js/jquery.masonry.min.js"></script>
   </head>
 
-  <body>
+  <body class="gradBG">
     <div>
       <input type='text' id='searchInput' placeholder='Search'>
       <button type="button" id='searchButton'>Search!</button>
     </div>
 
     <div id='messagesDiv'></div>
-
-    <!--div class="commentArea">
-      <div class="bubbledLeft">Hi</div>
-      <div class="bubbledRight">Hi there yourself</div>
-      <div class="bubbledLeft">Do you speak Latin?</div>
-      <div class="bubbledRight">Yes</div>
-      <div class="bubbledLeft">Prove it</div>
-      <div class="bubbledRight">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      </div>
-      <div class="bubbledLeft">OK</div>
-      <div class="bubbledLeft">Take it all back, you do speak latin.</div>
-    </div-->
+    <div class="searchDiv">
+      <ul class="toolbar clearfix">
+        <li><a href="#" class="fontawesome-heart"></a></li>
+        <li><a href="#" class="fontawesome-eye-open"></a></li>
+        <li><a href="#" class="fontawesome-comment"></a></li>
+        <li><input type="search" id="search" placeholder="What are you looking for?"></li>
+        <li><button type="submit" id="btn-search"><span class="fontawesome-search"></span></button></li>
+      </ul>
+    </div>
 
     <input type='text' id='nameInput' placeholder='Name'>
     <input type='text' id='messageInput' placeholder='Message'>
@@ -42,6 +39,16 @@
     <!--End Pattern HTML-->
 
     <script>
+    ( function() {
+
+      $('#btn-search').on('click', function(e) {
+
+        e.preventDefault();
+        $('#search').animate({width: 'toggle'}).focus();
+
+      });
+
+    } () );
 
       var myDataRef = new Firebase('https://heirogifics.firebaseio.com/');
       $('#messageInput').keypress(function (e) {
