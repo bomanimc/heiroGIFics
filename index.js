@@ -14,6 +14,7 @@ app.set('view engine', 'html');
 
 
 app.get('/', function(req, res) {res.render('index.html')});
+
 app.get('/gifs', function(req, res) {
 	//res.render('index.html')
 	var userInput = req.query.searchInput;

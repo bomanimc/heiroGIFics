@@ -1,29 +1,211 @@
 .gradBG {
-	background-color: #D2B48C;
+	background-color: #d3d3d3;
+	margin: 0px;
 }
 
+.gif {
+	margin: 2;
+}
+
+
+/* both item and item content change size */
+.item.is-expanded,
+.item.is-expanded .item-content {
+  width: 180px;
+  height: 120px;
+}
+
+
+#navBar {
+	width: 100%;
+	height: 10%;
+	/*background-color: #0FAD00; #cce1fe  */
+	background-color: #FF9900;
+}
 #messagesDiv {
-	width: 75%;
+	margin-top: 2%;
+	width: 73.15%;
 	margin-left: 12.5%;
 	overflow-y: auto; 
 	height: 70%;
-	border: 2px solid;
-	/*background-color: white;*/
+	border:solid 1px #ccc; 
+	background-color: white;
+	padding: 1%;
 }
-.searchDiv {
-	width: 75%;
+.searchBar {
+	width: 100%;
+	border:0; 
+	padding:5px; 
+	font-size:1.05em; 
+	font-family:Arial, sans-serif; 
+	color:#aaa; 
+	border:solid 1px #ccc; 
+
+	-moz-box-shadow: inset 0 0 4px rgba(0,0,0,0.2); 
+	-webkit-box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2); 
+	box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.2);
+}
+
+#g {
+	margin-top: 2%;
+	width: 76%;
+	margin-left: 12.5%;
+	background-color: #AFAFAF;
+}
+
+.heightControl {
+	height: 50%;
+	overflow-y: auto;
+}
+
+#searchCell {
+	width: 100%;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 75.35%;
 	margin-left: 12.5%;
 }
-
-.theImg{
-	-webkit-transform: scale(0.5); /* Saf3.1+, Chrome */
-     -moz-transform: scale(0.5); /* FF3.5+ */
-      -ms-transform: scale(0.5); /* IE9 */
-       -o-transform: scale(0.5); /* Opera 10.5+ */
-          transform: scale(0.5);
+th, td {
+    padding: 0;
 }
 
+.onoffswitch {
+    position: relative; width: 101px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 2px solid #999999; border-radius: 0px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    -moz-transition: margin 0.3s ease-in 0s; -webkit-transition: margin 0.3s ease-in 0s;
+    -o-transition: margin 0.3s ease-in 0s; transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 28px; padding: 0; line-height: 28px;
+    font-size: 15px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Search";
+    padding-left: 9px;
+    background-color: #34A7C1; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "URL";
+    padding-right: 9px;
+    background-color: #EEEEEE; color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 5px;
+    background: #FFFFFF;
+    border: 2px solid #999999; border-radius: 0px;
+    position: absolute; top: 0; bottom: 0; right: 69px;
+    -moz-transition: all 0.3s ease-in 0s; -webkit-transition: all 0.3s ease-in 0s;
+    -o-transition: all 0.3s ease-in 0s; transition: all 0.3s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+}
 
+.bubble
+{
+    display: inline-block;
+    max-width: 400px;
+    background-color: white;
+    padding: 5px;
+    border-radius: 4px;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    border-color: grey;
+}
+
+.left
+{
+    float: left;
+}
+
+.bubble.left:after
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: -8.5px;
+    top: 7px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid white;
+}
+
+.bubble.left:before
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: -9px;
+    top: 7px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-right: 8px solid black;
+
+}
+
+.bubble.right:after
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: -8px;
+    top: 6px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid #dbedfe;
+}
+
+.bubble.right:before
+{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: -9px;
+    top: 6px;
+    height: 0px;
+    width: 0px;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    border-left: 8px solid black;
+}
+
+.bubble.right
+{
+    float: right;
+    background-color: #dbedfe;
+}
+
+.clear
+{
+    clear: both;
+}
+
+/*
 .bubbledLeft,.bubbledRight{
 	position: relative;
 	margin-top: 5px;
@@ -34,9 +216,9 @@
 
 .bubbledLeft{
 	float: left;
-	margin-right: auto;
+	margin-right: auto; 
 	margin-left: 36px;
-	padding: 4px 10px 4px 15px; /*position within the border*/
+	padding: 4px 10px 4px 15px; 
 }
 
 .bubbledLeft:before{
@@ -64,10 +246,6 @@
 	height: 32px;
 	content:"";
 
-	background-image: url(testChatterLeft.png);
-	background-size: 32px 32px;
-	background-position: bottom left;
-
 	border-radius: 3px;
 	-webkit-border-radius: 3px;	
 	-moz-border-radius: 3px;	
@@ -81,7 +259,7 @@
 	text-align: right;
 
 	margin-right: 36px;
-	padding: 4px 15px 4px 10px; /*position within the border*/	
+	padding: 4px 15px 4px 10px; 	
 }
 
 .bubbledRight:before{
@@ -109,13 +287,10 @@
 	height: 32px;
 	content:"";
 
-	background-image: url(testChatterLeft.png);
-	background-size: 32px 32px;
-	background-position: bottom left;
-
 	border-radius: 3px;
 	-webkit-border-radius: 3px;	
 	-moz-border-radius: 3px;	
 	-o-border-radius: 3px;	
 	-ms-border-radius: 3px;	
 }
+*/

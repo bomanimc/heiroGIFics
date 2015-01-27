@@ -8,47 +8,40 @@
 
     <!--Style sheet for the image grid-->
     <link rel="stylesheet" type="text/css" href="css/style.css">
-    <link rel="stylesheet" type="text/css" href="css/toolbarStyle.css">
-    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans">
     <!--Masonry grid for gifs-->
     <script src="js/jquery.masonry.min.js"></script>
+    <title>HeiroGIFics</title>
   </head>
 
   <body class="gradBG">
-    <div>
-      <input type='text' id='searchInput' placeholder='Search'>
-      <button type="button" id='searchButton'>Search!</button>
-    </div>
+    <div id="navBar"></div>
 
     <div id='messagesDiv'></div>
-    <div class="searchDiv">
-      <ul class="toolbar clearfix">
-        <li><a href="#" class="fontawesome-heart"></a></li>
-        <li><a href="#" class="fontawesome-eye-open"></a></li>
-        <li><a href="#" class="fontawesome-comment"></a></li>
-        <li><input type="search" id="search" placeholder="What are you looking for?"></li>
-        <li><button type="submit" id="btn-search"><span class="fontawesome-search"></span></button></li>
-      </ul>
+    <div>
+      <table cellspacing="0" cellpadding="0">
+        <tr>
+          <td id="searchCell">
+            <input type='text' class="searchBar" id='searchInput' placeholder='Search'>
+          </td>
+          <td>
+            <div class="toggleDiv" >
+              <div class="onoffswitch">
+                  <input type="checkbox" name="onoffswitch"  class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                  <label class="onoffswitch-label" for="myonoffswitch">
+                      <span class="onoffswitch-inner"></span>
+                      <span class="onoffswitch-switch"></span>
+                  </label>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>      
     </div>
-
-    <input type='text' id='nameInput' placeholder='Name'>
-    <input type='text' id='messageInput' placeholder='Message'>
     
     <!--Pattern HTML-->
       <div id="g"></div>
-    <!--End Pattern HTML-->
 
     <script>
-    ( function() {
-
-      $('#btn-search').on('click', function(e) {
-
-        e.preventDefault();
-        $('#search').animate({width: 'toggle'}).focus();
-
-      });
-
-    } () );
 
       var myDataRef = new Firebase('https://heirogifics.firebaseio.com/');
       $('#messageInput').keypress(function (e) {
@@ -74,48 +67,94 @@
 
         if((count%2) == 0)
         {
-          $('<div class="bubbledLeft"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="left bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="clear"/>').appendTo($('#messagesDiv'));
         }
         else
         {
-          $('<div class="bubbledRight"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="right bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="clear"/>').appendTo($('#messagesDiv'));
         }
 
         $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
       };
 
-      //Gets text from search button on click
-      $('#searchButton').click(function() {
-        console.log('Open Function');
-
-        $("#g").empty();
-        $("#g").masonry('destroy');
-
-        console.log('Cleared List');
-        var searchText = $('#searchInput').val();
-        var parameters = {"searchInput": searchText}
-        
-        $.get('/gifs', parameters, function(data){
-          console.log('Made a call to get gifs');
-          console.dir(data);
-          for (var i = 0; i <= data.length - 1; i++) {
-            var gifLink = data[i];
-            var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image" width = "300" /></a>';
-            //$('<li/>').html( newList ).appendTo($('.g'));
-            //var newList = '<a href="#"><img src="' + gifLink + '" alt="Missing Image"/></a>';
-            $('<div class="gif"/>').html( newList ).appendTo($('#g'));
-
-            //Code for Masonry
-            var $container = $('#g');
-            $container.imagesLoaded(function(){
-              $container.masonry({
-                itemSelector : '.gif'
-              });
-            });
-
-          };
-        });
+      $( document ).ready(function() {
+        $('.onoffswitch-inner').addClass('searchState');
       });
+
+      $('.onoffswitch-inner').click( function() {
+        if($('.onoffswitch-inner').hasClass('searchState')) {
+          $('.onoffswitch-inner').removeClass('searchState');
+          $('.onoffswitch-inner').addClass('urlState');
+        }
+        else {
+          $('.onoffswitch-inner').removeClass('urlState');
+          $('.onoffswitch-inner').addClass('searchState');
+        }
+      });
+
+      //Gets text from search button on entry
+      $('#searchInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+          $("#g").empty();
+          $("#g").masonry('destroy');
+
+          console.log('Cleared List');
+          var searchText = $('#searchInput').val();
+          var parameters = {"searchInput": searchText};
+
+          if($('.onoffswitch-inner').hasClass('searchState')) {
+            
+            console.log('Open Search Functionality');      
+
+            $.get('/gifs', parameters, function(data)
+            {
+              console.log('Made a call to get gifs');
+              console.dir(data);
+
+              for (var i = 0; i <= data.length - 1; i++) {
+                var gifLink = data[i];
+                var newList = '<img id="gif" src="' + gifLink + '" alt="Missing Image" width = "313" />';
+                var divPrep = '<div class="gif"/>';
+                $(divPrep).html( newList ).appendTo($('#g'));
+              };
+
+              //Code for Masonry
+                var $container = $('#g');
+                $container.imagesLoaded(function(){
+                  $container.masonry({
+                    itemSelector : '.gif'
+                  });
+
+                  $('#g').removeAttr("style");
+                  var cssObj = {
+                    'position': 'relative'
+                  }
+
+                  $('#g').css(cssObj);
+                  $('#g').addClass('heightControl');
+                                          
+                });
+
+                $container.on( 'dblclick', '.gif', function() {
+                    var url = $(this).children().attr('src');
+                    console.log(url); 
+                    myDataRef.push({name: 'bo', text: url});
+                });                              
+            });  
+          }
+          else
+          {
+            console.log('Open URL Post Functionality'); 
+            $('#g').css('background-color', '#d3d3d3');
+            myDataRef.push({name: 'bo', text: searchText});
+          }
+        
+                  
+        }
+      });
+      
     </script>
 
   </body>
