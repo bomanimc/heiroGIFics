@@ -1,5 +1,6 @@
 .gradBG {
-	background-color: #d3d3d3;
+	
+	background-color: #eeeeee;
 	margin: 0px;
 }
 
@@ -18,26 +19,44 @@
 
 #navBar {
 	width: 100%;
-	height: 10%;
+	height: 6%;
 	/*background-color: #0FAD00; #cce1fe  */
-	background-color: #FF9900;
+	background-color: #33C194;
 }
+
+#topBar {
+	margin-top: 3%;
+	width: 62%;
+	margin-left: 19%;
+	height: 5%;
+	background-color: #f7f7f7;
+	border:solid 1px #ccc; 
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 15px; 
+	color: #33C194; 
+}
+
 #messagesDiv {
-	margin-top: 2%;
-	width: 73.15%;
-	margin-left: 12.5%;
+	width: 60%;
+	margin-left: 19%;
 	overflow-y: auto; 
 	height: 70%;
 	border:solid 1px #ccc; 
 	background-color: white;
 	padding: 1%;
+	
+	background: -webkit-linear-gradient(#FFFFFF, #effafc); 
+  	background: -o-linear-gradient(#FFFFFF, #effafc); 
+  	background: -moz-linear-gradient(#FFFFFF, #effafc); 
+  	background: linear-gradient(#FFFFFF, #effafc);  
 }
 .searchBar {
 	width: 100%;
 	border:0; 
 	padding:5px; 
 	font-size:1.05em; 
-	font-family:Arial, sans-serif; 
+	/*font-family:Arial, sans-serif;*/
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; 
 	color:#aaa; 
 	border:solid 1px #ccc; 
 
@@ -48,9 +67,10 @@
 
 #g {
 	margin-top: 2%;
-	width: 76%;
-	margin-left: 12.5%;
-	background-color: #AFAFAF;
+	width: 62%;
+	margin-left: 19%;
+	background-color: #eeeeee;
+	border:solid 1px #ccc; 
 }
 
 .heightControl {
@@ -65,8 +85,8 @@
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
-	width: 75.35%;
-	margin-left: 12.5%;
+	width: 62.2%;
+	margin-left: 19%;
 }
 th, td {
     padding: 0;
@@ -90,7 +110,9 @@ th, td {
 }
 .onoffswitch-inner:before, .onoffswitch-inner:after {
     display: block; float: left; width: 50%; height: 28px; padding: 0; line-height: 28px;
-    font-size: 15px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
+    font-size: 15px; color: white; 
+    /*font-family: Trebuchet, Arial, sans-serif; font-weight: bold;*/
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
     -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
 .onoffswitch-inner:before {
@@ -142,7 +164,7 @@ th, td {
     content: "";
     display: inline-block;
     position: absolute;
-    left: -8.5px;
+    left: -8px;
     top: 7px;
     height: 0px;
     width: 0px;

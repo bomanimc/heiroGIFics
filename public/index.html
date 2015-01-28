@@ -16,6 +16,7 @@
   <body class="gradBG">
     <div id="navBar"></div>
 
+    <div id="topBar"></div>
     <div id='messagesDiv'></div>
     <div>
       <table cellspacing="0" cellpadding="0">
@@ -63,16 +64,18 @@
 
       function displayChatMessage(name, text, count) {
 
-        var srcString = '<img id="theImg" src="' + text + '"width= "300" />';
+        var srcString = '<img id="theImg" src="' + text + '"width= "250" />';
 
         if((count%2) == 0)
         {
-          $('<div class="left bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          //$('<div class="left bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="left bubble"/>').html( srcString ).appendTo($('#messagesDiv'));
           $('<div class="clear"/>').appendTo($('#messagesDiv'));
         }
         else
         {
-          $('<div class="right bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          //$('<div class="right bubble"/>').html( srcString ).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
+          $('<div class="right bubble"/>').html( srcString ).appendTo($('#messagesDiv'));
           $('<div class="clear"/>').appendTo($('#messagesDiv'));
         }
 
@@ -81,6 +84,7 @@
 
       $( document ).ready(function() {
         $('.onoffswitch-inner').addClass('searchState');
+        $('#g').hide();
       });
 
       $('.onoffswitch-inner').click( function() {
@@ -94,11 +98,23 @@
         }
       });
 
+      $(window).resize(function() {
+        $('#g').removeAttr("style");
+        var cssObj = {
+          'position': 'relative'
+        }
+
+        $('#g').css(cssObj);
+        $('#g').addClass('heightControl');
+      });
+
       //Gets text from search button on entry
       $('#searchInput').keypress(function (e) {
         if (e.keyCode == 13) {
+          $('#g').show();
           $("#g").empty();
           $("#g").masonry('destroy');
+
 
           console.log('Cleared List');
           var searchText = $('#searchInput').val();
@@ -115,9 +131,12 @@
 
               for (var i = 0; i <= data.length - 1; i++) {
                 var gifLink = data[i];
-                var newList = '<img id="gif" src="' + gifLink + '" alt="Missing Image" width = "313" />';
+                var screenWidth = $(window).width();
+                var widthNum = screenWidth * .2;
+                var newList = '<img id="gif" src="' + gifLink + '" alt="Missing Image" width = "' + widthNum + '" />';
                 var divPrep = '<div class="gif"/>';
                 $(divPrep).html( newList ).appendTo($('#g'));
+                //console.log('Iteration: ' + i);
               };
 
               //Code for Masonry
@@ -126,7 +145,7 @@
                   $container.masonry({
                     itemSelector : '.gif'
                   });
-
+                  //console.log('Masonry is occuring');
                   $('#g').removeAttr("style");
                   var cssObj = {
                     'position': 'relative'
@@ -134,7 +153,7 @@
 
                   $('#g').css(cssObj);
                   $('#g').addClass('heightControl');
-                                          
+                                   
                 });
 
                 $container.on( 'dblclick', '.gif', function() {
@@ -147,7 +166,8 @@
           else
           {
             console.log('Open URL Post Functionality'); 
-            $('#g').css('background-color', '#d3d3d3');
+            //$('#g').css('background-color', '#d3d3d3');
+            $('#g').hide();
             myDataRef.push({name: 'bo', text: searchText});
           }
         
